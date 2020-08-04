@@ -1,0 +1,9 @@
+
+function A = PCA(D, alpha)
+    [n, d] = size(D);
+    sigma = cov(D);
+    [V, D] = eig(sigma);
+    D = diag(D);
+
+T = readtable('iris.txt')
+disp(T(:, 1:4))
