@@ -90,10 +90,14 @@ def hqpk(xi, xj):
 def KernelPCA(D, Kf, alpha):
     n, d = D.shape 
     K = np.array([[Kf(D[i], D[j]) for i in range(0, n)] for j in range(0, n)])
-    print(K)
+    #np.savetxt("kernel.txt", K, "%3f", " ", "\n")
+    #print(K)
     O = np.subtract(np.identity(n), 1/n * np.ones((n,n)))   #Centering Matrix
+    #np.savetxt("cent.txt", O, "%3f", " ", "\n")
     K = np.dot(np.dot(O, K), O)
-    eta, C = (lambda eVal, eVec: ([v.real for v in eVal if v.imag == 0 and v.real > 0.001], eVec))(*la.eig(K))
+    #np.savetxt("centKernel.txt", K, "%3f", " ", "\n")
+    #eta, C = (lambda eVal, eVec: ([v.real for v in eVal if v.imag == 0 and v.real > 0.001], eVec))(*la.eig(K))
+    eta = [v.real for v in la.eigvals(K) if v.imag == 0 and v.real > 0.001]
     print(eta)
 
 
@@ -111,8 +115,8 @@ dataMatrix = np.array(data)[:,:3].astype(np.float)
 #modify the data matrix as done by example 7.7 to prepare for Kernal PCA, display it as shown in fig 7.6
 dataMatrix2 = centered(dataMatrix)
 dataMatrix2[:, 0] = np.add(np.add(0.2 * np.square(dataMatrix2[:, 0]), np.square(dataMatrix2[:, 1])), 0.1 * np.dot(dataMatrix2[:, 0], dataMatrix2[:, 1]))
-plt.scatter(dataMatrix2[:, 0], dataMatrix2[:, 1])
-plt.show()
+#plt.scatter(dataMatrix2[:, 0], dataMatrix2[:, 1])
+#plt.show()
 
 KernelPCA(dataMatrix2, hqpk, 0.95)
 
