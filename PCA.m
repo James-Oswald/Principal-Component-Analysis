@@ -1,5 +1,4 @@
 function PCA
-
     function A = PCA(D, alpha)
         [n, d] = size(D);   %Data length and original dimentionality
         sigma = cov(D);     %Covariance Matrix
