@@ -22,6 +22,14 @@ function PCA
            A(i, :) = U(1:r,:)*D(i, 1:d)';
         end
     end
+%{
+    function A = KPCA(D, Kf, a)
+       [n, d] = size(D);
+       [j, k] = ndgrid(1:size(YourArray,1), 1:size(YourArray,2));
+       populated_matrix = (D);
+       A = 5;
+    end
+%}
     T = readtable('iris.txt');
     dataMatrix = table2array(T(:, 1:3));
     A = PCA(dataMatrix, 0.95);
